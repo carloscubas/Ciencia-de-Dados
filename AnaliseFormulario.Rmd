@@ -1,0 +1,21 @@
+---
+title: "Analise da planilha do excel"
+output: html_notebook
+---
+Visualiza os dados brutos da planilha de Teste Original
+```{r}
+HE = read.table('SurveyTesteOriginal.csv', header=TRUE, sep=',')
+HE        # visualizacao dos dados brutos
+```
+
+Visualiza o gráfico por gênero avaliado por frequencia absoluta
+```{r}
+contgenero = table(as.factor(HE$genero))    # frequencias absolutas
+pie ( contgenero , labels = paste(c("Masculino","Feminino"), "(", contgenero," individuos",")")  , col = rainbow(length ( contgenero ) ) , main = iconv("Grafico por Genero", from="UTF-8", to="latin2//TRANSLIT") )
+```
+
+Visualiza o gráfico por gênero avaliado por percentual
+```{r}
+fs = round(contgenero/sum(contgenero)*100)  # percentuais
+pie ( fs , labels = paste(c("Masculino","Feminino"), "(", fs,"% individuos",")")  , col = rainbow(length ( fs ) ) , main = iconv("Grafico por Genero", from="UTF-8", to="latin2//TRANSLIT") )
+```
