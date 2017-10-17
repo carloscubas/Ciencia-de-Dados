@@ -2,20 +2,50 @@
 title: "Analise da planilha do excel"
 output: html_notebook
 ---
-Visualiza os dados brutos da planilha de Teste Original
+<h3>Visualiza os <b>dados brutos</b> da planilha de Teste Original</h3>
+
 ```{r}
 HE = read.table('SurveyTesteOriginal.csv', header=TRUE, sep=',')
 HE        # visualizacao dos dados brutos
 ```
 
-Visualiza o gráfico por gênero avaliado por frequencia absoluta
+<h3>Visualiza o gráfico por gênero avaliado por percentual</h3>
 ```{r}
-contgenero = table(as.factor(HE$genero))    # frequencias absolutas
-pie ( contgenero , labels = paste(c("Masculino","Feminino"), "(", contgenero," individuos",")")  , col = rainbow(length ( contgenero ) ) , main = iconv("Grafico por Genero", from="UTF-8", to="latin2//TRANSLIT") )
-```
-
-Visualiza o gráfico por gênero avaliado por percentual
-```{r}
+contgenero = table(as.factor(HE$genero)) 
 fs = round(contgenero/sum(contgenero)*100)  # percentuais
 pie ( fs , labels = paste(c("Masculino","Feminino"), "(", fs,"% individuos",")")  , col = rainbow(length ( fs ) ) , main = iconv("Grafico por Genero", from="UTF-8", to="latin2//TRANSLIT") )
+```
+
+<h3>Visualiza o gráfico por idade</h3>
+```{r}
+contaidade = table(as.factor(HE$idade)) 
+fs = round(contaidade/sum(contaidade)*100)  # percentuais
+
+pie ( fs , labels = paste(c("16 a 20", "21 a 25", "26 a 30", "30 a 35", "36 a 40", "Mais de 40"), "(", fs,"% individuos",")")  , col = rainbow(length ( fs ) ) , main = iconv("Idade dos Participantes", from="UTF-8", to="latin2//TRANSLIT") )
+```
+<h3>Uso de Redes Sociais</h3>
+```{r}
+
+facebook = table(as.factor(HE$facebook)) 
+twitter = table(as.factor(HE$twitter)) 
+whatsapp = table(as.factor(HE$whatsapp))
+linkedin = table(as.factor(HE$linkedin))
+googleplus = table(as.factor(HE$googleplus))
+youtube = table(as.factor(HE$youtube))
+instagram = table(as.factor(HE$instagram))
+pinterest = table(as.factor(HE$pinterest))
+tumblr = table(as.factor(HE$tumblr))
+snapchat = table(as.factor(HE$snapchat))
+reddit = table(as.factor(HE$reddit))
+flickr = table(as.factor(HE$flickr))
+swarm = table(as.factor(HE$swarm))
+kik = table(as.factor(HE$kik))
+shots = table(as.factor(HE$shots))
+periscope = table(as.factor(HE$periscope))
+outro = table(as.factor(HE$outro))
+
+fsc = c(facebook,twitter,whatsapp,linkedin, googleplus,youtube, instagram, pinterest, tumblr, snapchat,reddit, flickr, swarm, kik, shots, periscope)
+fsc
+mids <- barplot(fsc, main="Redes Sociais", xlab='redes sociais', ylab='total utilizacao', col = rainbow(length ( fsc ) ))
+axis(1, at=mids, labels=c("facebook", "twitter", "whatsapp", "linkedin", "googleplus", "youtube", "instagram", "pinterest", "tumblr", "snapchat", "reddit", "flickr", "swarm", "kik", "shots", "periscope"), las=3)
 ```
