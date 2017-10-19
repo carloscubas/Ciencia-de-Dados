@@ -2,13 +2,12 @@
 title: "Analise da planilha do excel"
 output: html_notebook
 ---
+
 <h3>Visualiza os <b>dados brutos</b> da planilha de Teste Original</h3>
 
 ```{r}
 HE = read.table('SurveyTesteOriginal.csv', header=TRUE, sep=',')
 HE
-
-       # visualizacao dos dados brutos
 ```
 
 <h3>Visualiza o gráfico por gênero avaliado por percentual</h3>
@@ -28,12 +27,18 @@ pie ( fs , labels = paste(c("16 a 20", "21 a 25", "26 a 30", "30 a 35", "36 a 40
 <h3>Uso de Redes Sociais</h3>
 ```{r}
 Social = HE[,14:29] 
-Social
 fsc <-apply(Social,2,sum,na.rm=TRUE)
-lablist <- as.vector(colnames(fsc))
-barpos <- barplot(fsc, beside=TRUE, xlab='redes sociais', ylab='total usuarios', col = rainbow(length ( fs ) ) )
-text(1, at=barpos[5], labels=lablist, srt=45, pos=1, xpd=TRUE)
-
-
-
+lablist <- as.vector(colnames(Social))
+barpos <- barplot(fsc, xaxt="n", horiz=FALSE, ylab='Total Usuarios', col = rainbow(length ( fsc ) ) )
+text(x=barpos[,1], y=-1, adj=c(1, 1), lablist, cex=0.8, srt=90, xpd=TRUE)
 ```
+<h3>Idade dos filhos</h3>
+```{r}
+filhos = HE[,8:11] 
+filhos
+fsc <-apply(filhos,2,sum,na.rm=TRUE)
+lablist <- as.vector(colnames(filhos))
+barpos <- barplot(fsc, horiz=FALSE, ylab='Idade dos filhos', col = rainbow(length ( fsc ) ) )
+text(x=barpos[,1], y=-1, adj=c(1, 1), lablist, cex=0.8, srt=90, xpd=TRUE)
+```
+
